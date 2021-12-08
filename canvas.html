@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Canvas</title>
+  <meta charset="utf-8" />
+
+  <style>
+    .glass { position: fixed; inset: 0; margin: auto; border: 2px solid #444; border-top: 0 none; width: 500px; height: 600px; }
+    .square { position: absolute; left: 0; bottom: 0; width: 50px; height: 50px; background-color: #444; }
+  </style>
+</head>
+<body>
+  <div class="glass">
+    <div class="square"></div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    function getCSSProp (msg) {
+      return parseInt(getComputedStyle(square)[dictionary[msg.direction]] , 10);
+    }
+
+    var socket = io(),
+      square = document.querySelector('.square'),
+      step = 10;
+
+    var dictionary = {
+      up: 'bottom',
+      down: 'bottom',
+      left: 'left',
+      right: 'left'
+    }
+
+    socket.on('move', function(msg) {
+      square.style.backgroundColor = msg.color;
+      
+      switch (msg.direction) {
+        case 'left':
+          console.log(getCSSProp(msg));
+          square.style.left = getCSSProp(msg) - step + 'px';
+          break;
+        case 'right':
+          console.log(getCSSProp(msg));
+          square.style.left = getCSSProp(msg) + step + 'px';
+          break;
+        case 'up':
+          console.log(getCSSProp(msg));
+          square.style.bottom = getCSSProp(msg) + step + 'px';
+          break;
+        case 'down':
+          console.log(getCSSProp(msg));
+          square.style.bottom = getCSSProp(msg) - step + 'px';
+          break;
+        default:
+          break;
+      }
+    });
+  </script>
+</body>
+</html>

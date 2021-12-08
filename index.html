@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Controls</title>
+  <meta charset="utf-8" />
+</head>
+<body>
+  <a href="/canvas" target="_blank">Canvas</a>
+  <button type="button">up</button>
+  <button type="button">down</button>
+  <button type="button">left</button>
+  <button type="button">right</button>
+
+  <script>
+    var button = document.querySelectorAll('button').forEach(function(item){
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        fetch('/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          body: JSON.stringify({
+            direction: e.target.innerText,
+            color: '#' + (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1,6)
+          })
+        });
+      });
+    });
+  </script>
+</body>
+</html>
