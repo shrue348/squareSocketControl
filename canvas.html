@@ -36,19 +36,15 @@
       
       switch (msg.direction) {
         case 'left':
-          console.log(getCSSProp(msg));
           square.style.left = getCSSProp(msg) - step + 'px';
           break;
         case 'right':
-          console.log(getCSSProp(msg));
           square.style.left = getCSSProp(msg) + step + 'px';
           break;
         case 'up':
-          console.log(getCSSProp(msg));
           square.style.bottom = getCSSProp(msg) + step + 'px';
           break;
         case 'down':
-          console.log(getCSSProp(msg));
           square.style.bottom = getCSSProp(msg) - step + 'px';
           break;
         default:
